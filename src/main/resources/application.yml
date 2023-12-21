@@ -1,0 +1,31 @@
+logging:
+  level:
+    root: INFO
+    org.flywaydb.core: debug
+
+spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/flyway-test
+    username: postgres
+    password: root
+  jpa:
+    open-in-view: false
+
+  flyway:
+    # these properties are not required and picked by config by default , the db connection will be same as main connection and if want to do in other db then can config
+    enabled: true
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/flyway-test
+    user: postgres
+    password: root
+
+    locations: "classpath:db/migration"  # if want to place sql files in another location , default is db/migration
+    table: "flyway_schema_history" # default table name for flyway table , can change to other tables
+    sqlMigrationPrefix: "V"  # prefix for sql files
+    sqlMigrationSeparator: "__"  # separator for prefix and name
+    sqlMigrationSuffixes: ".sql" # suffix to check for files in migration folder
+    #initSqls:  #initial sqls to run at start time before migration
+    #group: true # to group the files that are being run first time by flyway
+
+    out-of-order: true # allows flyway to migrate the sqls which were not in sequence and are being executed later
